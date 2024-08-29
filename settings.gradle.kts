@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SnakeGame"
-include(":app")
+include(":shared")
