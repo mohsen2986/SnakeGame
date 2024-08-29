@@ -220,7 +220,6 @@ fun Board(state: State) {
     BoxWithConstraints(
         modifier = Modifier.padding(16.dp)
     ) {
-        val titleSize = maxWidth / Game.BOARD_SIZE
 
         val titleSizeX = maxWidth / Game.X_BOARD_SIZE
         val titleSizeY = maxHeight / Game.Y_BOARD_SIZE
@@ -249,7 +248,7 @@ fun Board(state: State) {
                         x = titleSizeX * it.first,
                         y = titleSizeY * it.second
                     )
-                    .size(titleSize)
+                    .size(titleSizeX ,titleSizeY)
                     .background(
                         Color.DarkGray, Shapes().small
                     )
