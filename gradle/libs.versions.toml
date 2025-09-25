@@ -1,76 +1,62 @@
 [versions]
-#agp = "8.1.4"
-#android-compileSdk = "34"
-#android-minSdk = "24"
-#android-targetSdk = "34"
-#androidx-activityCompose = "1.8.2"
-#androidx-appcompat = "1.6.1"
-#androidx-constraintlayout = "2.1.4"
-#androidx-core-ktx = "1.12.0"
-#androidx-material = "1.11.0"
-androidx-material3 = "1.11.0"
-#androidx-test-junit = "1.1.5"
-#compose = "1.6.8"
-#compose-compiler = "1.5.6"
-#compose-plugin = "1.7.0-alpha03"
-#kotlin = "2.0.20"
-##kotlin = "1.9.21"
-#coroutine = "2.3.6"
-#kotlinx-coroutines = "1.8.1"
-#voyager = "1.0.0"
-#kodein = "7.20.2"
-
-agp = "8.1.4"
-android-compileSdk = "34"
+agp = "8.11.2"
+android-compileSdk = "36"
 android-minSdk = "24"
-android-targetSdk = "34"
-androidx-activityCompose = "1.8.2"
-androidx-appcompat = "1.6.1"
-androidx-constraintlayout = "2.1.4"
-androidx-core-ktx = "1.12.0"
-androidx-espresso-core = "3.5.1"
-androidx-material = "1.11.0"
-androidx-test-junit = "1.1.5"
-compose = "1.6.1"
-compose-compiler = "1.5.6"
-compose-plugin = "1.5.11"
+android-targetSdk = "36"
+androidx-activity = "1.12.2"
+androidx-appcompat = "1.7.1"
+androidx-core = "1.17.0"
+androidx-espresso = "3.7.0"
+androidx-lifecycle = "2.9.6"
+androidx-navigation = "2.9.1"
+androidx-testExt = "1.3.0"
+biometry = "0.4.0"
+composeMultiplatform = "1.9.3"
 junit = "4.13.2"
-kotlin = "1.9.21"
-ktor = "2.3.7"
-coroutine = "2.3.6"
-kotlinx-coroutines = "1.7.3"
-moko-mvvm = "0.16.1"
-kamel = "0.9.1"
-voyager = "1.0.0"
-kodein = "7.20.2"
-moko-version = "0.23.0"
+kotlin = "2.3.0"
+room = "2.7.0-alpha13"
+ksp = "2.3.0"
+sqlite = "2.6.2"
+koin = "4.1.1"
+datastore = "1.3.0-alpha05"
+composePwa = "0.5.0"
+sqldelight = "2.2.1"
+kotlinx-serialization = "1.7.3"
+wire = "5.5.0"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
-androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-material3" }
-kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
-
-
-voyager = {module = "cafe.adriel.voyager:voyager-navigator" , version.ref= "voyager"}
-voyager-kodein = {module ="cafe.adriel.voyager:voyager-kodein" , version.ref="voyager"}
-
-kodein = {module = "org.kodein.di:kodein-di-framework-compose" , version.ref="kodein"}
-
+biometry = { module = "dev.icerock.moko:biometry", version.ref = "biometry" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExt" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-compose = { module = "io.insert-koin:koin-compose" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
+koin-android = { module = "io.insert-koin:koin-android" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room = { id = "androidx.room", version.ref = "room" }
+composePwa = { id = "dev.yuyuyuyuyu.composepwa", version.ref = "composePwa" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+wire = { id = "com.squareup.wire", version.ref = "wire" }
 
 [bundles]

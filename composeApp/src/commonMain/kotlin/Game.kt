@@ -54,7 +54,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.TileMode
-import androidx.compose.ui.input.key.Key.Companion.R
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
@@ -69,10 +68,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-//import org.jetbrains.compose.resources.ExperimentalResourceApi
-//import org.jetbrains.compose.resources.painterResource
-//import snakegame.composeApp.generated.resources.Res
-//import snakegame.composeApp.generated.resources.speaker
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
+import snakegame.composeapp.generated.resources.Res
+import snakegame.composeapp.generated.resources.icon2
 import kotlin.random.Random
 
 
@@ -230,6 +229,7 @@ fun GreetingPreview() {
 }
 
 //@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun GameBoard(game: Game) {
     val state = game.state.collectAsState()
@@ -636,14 +636,15 @@ fun GameBoard(game: Game) {
 
 
             Spacer(modifier = Modifier.weight(1f))
-//            Image(
-//                modifier = Modifier
-//                    .padding(bottom = 15.dp)
-//                    .size(85.dp)
-//                    .align(Alignment.CenterHorizontally),
-//                painter = painterResource(Res.drawable.speaker),
-//                contentDescription = null
-//            )
+//            Res.
+            Image(
+                modifier = Modifier
+                    .padding(bottom = 15.dp)
+                    .size(85.dp)
+                    .align(Alignment.CenterHorizontally),
+                painter = painterResource(Res.drawable.icon2),
+                contentDescription = null
+            )
         }
     }
 }
