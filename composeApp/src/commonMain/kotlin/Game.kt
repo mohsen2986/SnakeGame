@@ -40,6 +40,7 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 //import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -61,8 +62,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -72,6 +75,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import snakegame.composeapp.generated.resources.Res
 import snakegame.composeapp.generated.resources.icon2
+import snakegame.composeapp.generated.resources.speaker
 import kotlin.random.Random
 
 
@@ -79,6 +83,10 @@ import kotlin.random.Random
 data class State(val food: Pair<Int, Int>, val snake: List<Pair<Int, Int>>)
 
 class Game(private val scope: CoroutineScope) {
+    enum class SoundEvent { PICKUP, GAME_OVER }
+    private val _events = MutableSharedFlow<SoundEvent>(extraBufferCapacity = 1)
+    val events = _events.asSharedFlow()
+
 
     private val mutex = Mutex()
     private val mutableState =
@@ -113,9 +121,11 @@ class Game(private val scope: CoroutineScope) {
                     }
                     if (newPosition == it.food) {
                         snakeLength++
+                        _events.tryEmit(SoundEvent.PICKUP)
                     }
                     if (it.snake.contains(newPosition)) {
                         snakeLength = 1
+                        _events.tryEmit(SoundEvent.GAME_OVER)
                     }
 
                     it.copy(
@@ -642,7 +652,7 @@ fun GameBoard(game: Game) {
                     .padding(bottom = 15.dp)
                     .size(85.dp)
                     .align(Alignment.CenterHorizontally),
-                painter = painterResource(Res.drawable.icon2),
+                painter = painterResource(Res.drawable.speaker),
                 contentDescription = null
             )
         }

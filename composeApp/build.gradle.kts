@@ -1,4 +1,7 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+@file:Suppress("DEPRECATION")
+
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -8,10 +11,24 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+    androidTarget()
+    
+    jvm("desktop")
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser {
+            val projectDirPath = project.projectDir.path
+            commonWebpackConfig {
+                outputFileName = "composeApp.js"
+                devServer = (devServer ?: org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        add(projectDirPath)
+                    }
+                }
+            }
         }
+        binaries.executable()
     }
 
     listOf(
@@ -26,14 +43,6 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-
-        }
-        iosMain.dependencies {
-        }
-
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -45,37 +54,58 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.androidx.navigation.compose)
+        }
 
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.activity.compose)
+        }
 
+        iosMain.dependencies {
+        }
+        wasmJsMain.dependencies {
+        }
+        jvmMain.dependencies {
+                implementation(compose.desktop.currentOs)
         }
     }
+}
 
+android {
+    namespace = "com.example.snakegame"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
-    android {
-        namespace = "com.example.snakegame"
-        compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-
-        defaultConfig {
-            applicationId = "com.example.snakegame"
-            minSdk = libs.versions.android.minSdk.get().toInt()
-            targetSdk = libs.versions.android.targetSdk.get().toInt()
-            versionCode = 1
-            versionName = "1.0"
+    defaultConfig {
+        applicationId = "com.example.snakegame"
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        versionCode = 1
+        versionName = "1.0"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-        packaging {
-            resources {
-                excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            }
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
         }
-        buildTypes {
-            getByName("release") {
-                isMinifyEnabled = false
-            }
-        }
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.example.snakegame"
+            packageVersion = "1.0.0"
         }
     }
 }
@@ -83,4 +113,3 @@ kotlin {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
-
